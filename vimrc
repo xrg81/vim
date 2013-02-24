@@ -92,6 +92,10 @@ nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 " Open Splits to the right bottom
 set splitright splitbelow
 
+" Treat all numerals as decimal, regardless of whether they are padded with
+" zeros
+set nrformats=
+
 "                                                                               }}}
 " Key Mapping: -----------------------------------------------------------------{{{
 "

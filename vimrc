@@ -78,13 +78,6 @@ nnoremap N Nzzzv
 nnoremap g, g,zz
 nnoremap <c-o> <c-o>zz
 
-" Max History
-let g:yankring_max_history = 100
-" Use vertical split
-let g:yankring_window_use_horiz = 0
-" Force window to left side
-let g:yankring_window_use_right = 0
-
 " Split line (sister to [J]oin lines)
 " The normal use of S is covered by cc, so don't worry about shadowing it.
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w

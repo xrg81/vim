@@ -78,6 +78,11 @@ nnoremap N Nzzzv
 nnoremap g, g,zz
 nnoremap <c-o> <c-o>zz
 
+" Spell Checking
+hi clear SpellBad
+hi SpellBad cterm=underline
+" set spell
+
 " Split line (sister to [J]oin lines)
 " The normal use of S is covered by cc, so don't worry about shadowing it.
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
@@ -88,6 +93,7 @@ set splitright splitbelow
 " Treat all numerals as decimal, regardless of whether they are padded with
 " zeros
 set nrformats=
+                                               
 
 "                                                                               }}}
 " Key Mapping: -----------------------------------------------------------------{{{
@@ -108,20 +114,6 @@ nnoremap k gk
 noremap H ^
 noremap L $
 vnoremap L g_
-inoremap <c-a> <esc>I
-inoremap <c-e> <esc>A
-cnoremap <c-a> <home>
-cnoremap <C-b> <Left>
-cnoremap <C-e> <End>
-cnoremap <C-f> <Right>
-cnoremap <C-n> <End>
-cnoremap <C-p> <Up>
-
-" Resort using unimpaired plugin 
-nmap <C-Up> [e
-nmap <C-Down> ]e
-vmap <C-Up> [egv
-vmap <C-Down> ]egv
 
 " NERDTree Toggle
 map <silent> <F4> :NERDTreeToggle<CR>
@@ -133,9 +125,6 @@ vmap < <gv
 " Default to more standardized regex
 nnoremap / /\v
 vnoremap / /\v
-
-" OmniComplete remap
-" inoremap <Nul> <C-x><C-o>
 
 " Highlight toggle
 nnoremap <leader><space> :noh<CR>
@@ -154,7 +143,7 @@ nnoremap <leader>q gqip
 nnoremap <leader>v V']
 
 " Edit .vimrc
-nnoremap <leader>ev :e $MYVIMRC<cr>
+nnoremap <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 " Delete to rest of the line
@@ -171,16 +160,10 @@ nnoremap <C-L> :call g:ToggleNuMode()<CR>
 nnoremap <Space> za
 vnoremap <Space> za
 
-" Clear trailing whitespace
-nnoremap <silent> <C-k> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
-
 " swap ` with ' because the ' key is closer and jumping to the character is more useful
 nnoremap ' `
 nnoremap ` '
 
-" imap { {}<left>
-" imap ( ()<left>
-" imap [ []<left>
 
 "                                                                               }}}
 " Spacing Settings: ------------------------------------------------------------{{{
@@ -223,7 +206,7 @@ highlight Visual ctermbg=237 guibg=#293739
 
 if has('gui_running')
 	"=== GUI Mode =============
-	set guifont=Liberation\ Mono\ 12
+	set guifont=DejaVu\ Sans\ Mono\ 12
 	set lsp=3
 
 	" Turn off Toolbar
@@ -284,7 +267,16 @@ autocmd FileType sh setlocal foldmethod=syntax
 let sh_fold_enabled=1
 " }}} 
 " Python {{{
-autocmd FileType py setlocal foldmethod=indent
+autocmd FileType py set shiftwidth=4
+autocmd FileType py set tabstop=4
+autocmd FileType py set expandtab
+autocmd FileType py set autoindent
+autocmd FileType py set fdm=indent
+autocmd FileType py set foldlevelstart=99
+autocmd FileType py set fdi="#"
+autocmd BufRead *.py set ft=python
+autocmd BufNewFile *.py set ft=python
+
 " Wrap at 72 chars for comments.
 " }}} 
 
@@ -360,7 +352,7 @@ set laststatus=2
 " -------------------------------------------------------------------------------
 function! g:ToggleNuMode() " {{{
 	if(&rnu == 1)
-		set nu
+		set nornu
 	else
 		set rnu
 	endif
@@ -382,21 +374,6 @@ function! MyFoldText() " {{{
 endfunction 
 
 set foldtext=MyFoldText() " }}}
-" Persistent Undo {{{
-" au BufReadPost * call ReadUndo()
-" au BufWritePost * call WriteUndo()
-" func ReadUndo()
-" 	if filereadable(expand('%:h'). '/UNDO/' . expand('%:t'))
-" 		rundo %:h/UNDO/%:t
-" 	endif
-" endfunc
-" func WriteUndo()
-" 	let dirname = expand('%:h') . '/UNDO'
-" 	if !isdirectory(dirname)
-" 		call mkdir(dirname)
-" 	endif
-" 	wundo %:h/UNDO/%:t
-" endfunc }}}
 
 "                                                                               }}}
 " Abbreviations: ---------------------------------------------------------------{{{
@@ -429,5 +406,8 @@ iab guarenteed guaranteed
 " Python-Mode
 
 " Enable python folding
-let g:pymode_folding = 1
+" let g:pymode_folding = 1
+"
+" let g:pydiction_location = '~.vim/bundle/pydiction/complete-dict'
+" let g:pydiction_menu_height = 20
 "                                                                               }}}

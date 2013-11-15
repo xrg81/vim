@@ -408,6 +408,7 @@ iab guarenteed guaranteed
 " Enable python folding
 " let g:pymode_folding = 1
 "
+silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
 " let g:pydiction_location = '~.vim/bundle/pydiction/complete-dict'
 " let g:pydiction_menu_height = 20
 "                                                                               }}}
